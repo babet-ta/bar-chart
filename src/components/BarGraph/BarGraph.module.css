@@ -1,0 +1,46 @@
+.container {
+  background-color: var(--background-color-rgba);
+  border-radius: var(--border-radius);
+  padding: 40px;
+}
+
+/* столбец */
+
+.bar {
+  fill: var(--primary-color-rgba);
+  transition-duration: 0.2s;
+}
+
+.bar:hover {
+  filter: drop-shadow(0px 0px 2px var(--primary-color-rgba));
+}
+
+/* нижний текст */
+
+.text {
+  font-size: 20px;
+  font-family: inherit;
+  transition-duration: 0.2s;
+}
+
+/* прямоугольник со значением */
+.value_text {
+  font-size: 16px;
+  fill: black;
+}
+
+.value_box {
+  padding: 2px 8px;
+  fill: var(--accent-color-rgba);
+  height: 24px;
+  width: 51px;
+}
+
+.value_container {
+  opacity: 0;
+  transition-duration: 0.2s;
+}
+
+.bar:hover+.value_container {
+  opacity: 1;
+}

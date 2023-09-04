@@ -1,0 +1,54 @@
+/* тег селект */
+.select {
+  /* сброс стилей, включая стрелку*/
+  appearance: none;
+  /* для большей кроссбраузерности сброса */
+  background-color: transparent;
+  border: none;
+
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: 1;
+  outline: none;
+  grid-area: select;
+  width: 380px;
+  height: 48px;
+  padding: 9px 17px 9px 20px;
+}
+
+/* выпадающее меню */
+
+.dropdown {
+  margin-left: auto;
+  width: 380px;
+  height: 48px;
+  position: relative;
+  border: 2px solid var(--primary-color-rgba);
+  border-radius: var(--border-radius);
+  min-width: 15ch;
+  max-width: 30ch;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #fff;
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+}
+
+/* стрелка */
+
+.dropdown::after {
+  content: "";
+  width: 28px;
+  height: 17px;
+  background-image: url("../../../public/Arrow.svg");
+  grid-area: select;
+  justify-self: end;
+  position: relative;
+  right: 17px;
+  transition: all 1s;
+}
