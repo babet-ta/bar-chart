@@ -3,6 +3,7 @@ import data from "../data"
 
 const SVG_WIDTH = 995;
 const SVG_HEIGHT = 400;
+const yOffset = 250;
 
 const russianMonthAbbreviations: Record<string, string> = {
   "January": "Янв",
@@ -44,6 +45,10 @@ export function BarGraph({ period }: BarGraphProps) {
     }
   }
 
+  function logTransform(value: number) {
+    return Math.log(value + 1);
+  }
+
   const x0 = 50;
   const xAxisLength = SVG_WIDTH - x0 * 2;
 
@@ -52,13 +57,11 @@ export function BarGraph({ period }: BarGraphProps) {
 
   const xAxisY = y0 + yAxisLength;
 
-  const dataYMax = 6900; /* для корректного отображения по прототипу */
-  const dataYMin = 0;
-  const dataYRange = dataYMax - dataYMin;
-
-  const yTicks = [`10 000`, `5 000`, `2 000`, `1 000`, `500`, 0]
+  const yTicks = [10000, 5000, 2000, 1000, 500];
+  const logTicks = yTicks.map(logTransform);
 
   const barPlotWidth = period === "year" ? 63 + 16 : period === "month" ? 11 + 16 : 139 + 16;
+
 
   return (
     <div className={styles.container}>
@@ -82,41 +85,34 @@ export function BarGraph({ period }: BarGraphProps) {
           stroke="transparent"
         />
 
-        {Array.from({ length: yTicks.length }).map((_, index) => {
-          const y = y0 + index * (yAxisLength / yTicks.length);
+        {/* Тики на оси Y */}
+        {yTicks.map((yValue, index) => {
+          const logValue = logTransform(yValue);
 
-          const yValue = yTicks[index];
-          // равномерные тики по Y оси
-          // Math.round(dataYMax - index * (dataYRange / yTicks.length))
+          const y = xAxisY - ((logValue / logTicks[logTicks.length - 1]) * yAxisLength) + yOffset;
+
           return (
             <g key={index}>
-              <line
-                x1={x0}
-                y1={y}
-                x2={x0 - 5}
-                y2={y}
-                stroke="transparent"
-              />
-              <text x={x0 - 50} y={y + 50} textAnchor="start" className={styles.text}>
+              <text x={x0 - 50} y={y + 5} textAnchor="start" className={styles.text}>
                 {yValue}
               </text>
             </g>
           );
         })}
 
-        {/* Столбы диаграммы*/}
+        {/* Столбы диаграммы */}
         {currData(period).map(([day, dataY], index) => {
-          const x = x0 + index * barPlotWidth;
-
-          const yRatio = (dataY - dataYMin) / dataYRange;
-
-          const y = y0 + (1 - yRatio) * yAxisLength;
-          const height = yRatio * yAxisLength;
-
           const sidePadding = period === "year" ? 63 : period === "month" ? 11 : 139;
+
+          const x = x0 + index * barPlotWidth;
 
           const barXAxis = period === "month" ? (x + sidePadding / 2 + 50) : (x + sidePadding / 2);
           const textXAxis = period === "month" ? (x + barPlotWidth / 2 + 50) : (x + barPlotWidth / 2);
+
+          const logDataY = logTransform(dataY);
+          const y = xAxisY - ((logDataY / logTicks[logTicks.length - 1]) * yAxisLength) + yOffset;
+          const height = xAxisY - y;
+
 
           return (
             <g key={index}>

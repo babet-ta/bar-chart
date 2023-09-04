@@ -2,6 +2,7 @@
   background-color: var(--background-color-rgba);
   border-radius: var(--border-radius);
   padding: 40px;
+  position: relative;
 }
 
 /* столбец */
@@ -43,4 +44,13 @@
 
 .bar:hover+.value_container {
   opacity: 1;
+}
+
+
+/* ноль */
+.container::before {
+  content: '0';
+  font-size: 20px;
+  bottom: 70px;
+  position: absolute;
 }
