@@ -45,9 +45,9 @@ export function Dropdown(props: any) {
         className={styles.select}
         onChange={(e) => {
           handleChange(e.target.value);
+          handleToggleActive();
         }}
-        onClick={handleToggleActive}
-        onBlur={handleToggleActive}
+        onMouseDown={handleToggleActive}
       >
         {options.map((option) => (
           <option
