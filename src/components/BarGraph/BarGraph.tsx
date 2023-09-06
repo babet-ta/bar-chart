@@ -1,9 +1,9 @@
 import styles from "./BarGraph.module.css";
 import data from "../data"
 
-const SVG_WIDTH = 995;
-const SVG_HEIGHT = 400;
-const yOffset = 250;
+const SVG_WIDTH = 985;
+const SVG_HEIGHT = 320;
+const yOffset = 100;
 
 const russianMonthAbbreviations: Record<string, string> = {
   "January": "Янв",
@@ -52,7 +52,7 @@ export function BarGraph({ period }: BarGraphProps) {
   const x0 = 50;
   const xAxisLength = SVG_WIDTH - x0 * 2;
 
-  const y0 = 30;
+  const y0 = 50;
   const yAxisLength = SVG_HEIGHT - y0 * 2;
 
   const xAxisY = y0 + yAxisLength;
@@ -93,7 +93,7 @@ export function BarGraph({ period }: BarGraphProps) {
 
           return (
             <g key={index}>
-              <text x={x0 - 50} y={y + 5} textAnchor="start" className={styles.text}>
+              <text x={x0 - 50} y={y + 10} textAnchor="start" className={styles.text}>
                 {yValue}
               </text>
             </g>

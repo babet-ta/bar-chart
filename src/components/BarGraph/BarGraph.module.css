@@ -3,6 +3,8 @@
   border-radius: var(--border-radius);
   padding: 40px;
   position: relative;
+  width: 1060px;
+  height: 400px;
 }
 
 /* столбец */
